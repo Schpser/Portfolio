@@ -76,9 +76,13 @@ Idea (Based on SI3LN structure)	SCAMPER Trigger	Description	Feasibility (1-5)	Im
 
 Aspect	Definition
 **Problem** | Classic arcade games offer an ephemeral experience. Players have no insight into their performance, trends, or history.
+
 **Solution** | Couple an engaging gaming experience (`game_client_c`) with an analytical dashboard (`web_dashboard`) via a robust API (`backend_api_python`), transforming a gaming session into actionable data.
+
 **Target Audience** | 1. Casual Gamers (25-35 years old). 2. Data-enthusiasts who enjoy tracking their progress.
+
 **Application Type** | Desktop-based Gaming Ecosystem: Heavy client in C (for performance) + responsive web dashboard (for accessibility).
+
 **Why This Idea?** | 1. Perfect alignment with the imposed folder structure. 2. Demonstrates a complete data flow (Client → API → DB → Frontend). 3. Showcases our complementary skills. 4. Scope perfectly manageable by a team of 2.
 
 **✅ MVP SMART Objectives:**

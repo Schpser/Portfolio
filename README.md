@@ -181,17 +181,74 @@ This timeline follows the 5-stage curriculum structure.
 
 ---
 
-## PART 3: Technical Documentation (To Come)
+## PART 3: Technical Documentation
 
-This section will be developed during Stage 3. Here is the planned structure:
+*Following our collaborative "build and learn" approach, this technical blueprint is being defined in parallel with early development sprints. The following sections outline our current, evolving specifications.*
 
 ### 5. Core Technical Specifications
 
 #### 5.1. 📖 User Stories & Mockups
-*(e.g., "As a player, I want to see my accuracy rate as a chart...")*
+*As players, we wanted to combine learning with pleasure by developing our skills while having fun.*
+*As developers, we want to build a complete project that demonstrates our technical and methodological mastery.*
+*Mockups of game UI and dashboard charts (wireframes)*
 
 #### 5.2. 🏗️ System Architecture Diagram
-Overview of components and data flow
+Project structure and data flow (Client ↔ API ↔ DB ↔ Dashboard)
+```
+├── README.md
+├── assets_shared
+│   ├── backgrounds
+│   ├── fonts
+│   ├── sounds
+│   └── sprites
+│       ├── bonuses
+│       ├── enemies
+│       └── players
+├── backend_api_python
+│   ├── config.py
+│   ├── main.py
+│   ├── requirements.txt
+│   ├── setup.py
+│   ├── src
+│   │   ├── api
+│   │   ├── entities
+│   │   ├── game
+│   │   ├── ui
+│   │   └── utils
+│   ├── tests
+│   │   ├── __init__.py
+│   │   ├── test_collisions.py
+│   │   ├── test_enemy.py
+│   │   └── test_player.py
+│   └── venv
+│       ├── bin
+│       ├── include
+│       ├── lib
+│       ├── lib64 -> lib
+│       └── pyvenv.cfg
+├── documentation
+│   ├── REAC_mapping
+│   ├── technical
+│   │   ├── __init__.py
+│   │   ├── api.md
+│   │   ├── architecture.md
+│   │   └── game_design.md
+│   └── user
+├── game_client_c
+├── infrastructure
+│   ├── ci_cd
+│   │   └── github-actions.yml
+│   ├── docker
+│   │   └── docker-compose.yml
+│   └── monitoring
+└── web_dashboard
+    ├── assets
+    ├── public
+    │   ├── index.html
+    │   ├── script.js
+    │   └── style.css
+    └── src
+```
 
 #### 5.3. 💾 Database Schema
 SQLite ER diagram (tables: `games`, `players`, `events`)

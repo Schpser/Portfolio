@@ -31,12 +31,14 @@
 
 ### 0. Team Formation & Roles 👥
 
-| Member | Primary Role | Strengths & Interests | Initial Responsibilities |
-|--------|-------------|----------------------|------------------------|
-| **Hugo Ramos** | 🎨 Lead Game Developer & Visual Architect | Game logic (C++), Visual design, UI/UX sensitivity, Performance optimization | `game_client_c` development, Asset creation/enhancement (`assets_shared/`), Visual consistency across all modules |
-| **Melissa Sbibih** | ⚙️ Lead Backend Developer & System Architect | API design (Python), Data modeling, Documentation, Full-stack integration | `backend_api_python` development, `web_dashboard` logic, Technical documentation & planning |
+| Member | Primary Role |
+|--------|-------------|
+| **Hugo Ramos** | 🎨 Full-Stack Game Developer with a focus on visual craftsmanship, gameplay feel, and performance optimization. |
+| **Melissa Sbibih** | ⚙️ Full-Stack Game Developer with a focus on system architecture, data flow, and clean documentation. |
 
-#### 💡 Work Standards & Synergy
+#### 💡 Our Core Work Principle: Full Shared Ownership
+
+We are a true pair. We reject the classic frontend/backend split. Our strength is in tackling every challenge together, from the low-level C++ game loop to the Python API logic and the JavaScript dashboard. This ensures deep mutual understanding of the entire codebase, superior code quality through constant review, and resilient problem-solving.
 
 **🤝 Collaboration Model:**  
 We will adopt a "Feature-Pairing" model. For each main feature (e.g., "Score submission"), we will collaboratively design, implement, and test it together, ensuring shared understanding and code ownership.
@@ -48,6 +50,33 @@ We will adopt a "Feature-Pairing" model. For each main feature (e.g., "Score sub
 **🎯 Decision-making:**  
 - Consensus for creative choices
 - Final technical decision by the domain expert (Hugo for the game, Melissa for the API)
+
+🗂️ Practical Collaboration Framework
+To implement this principle efficiently within the project structure (game_client_c, backend_api_python, web_dashboard), we use a "Feature-Driven Pairing" workflow:
+
+Feature Kickoff: For each new feature (e.g., "Player Score Submission"), we design the solution together, defining:
+
+The gameplay logic (C++)
+
+The data structure and API endpoint (Python)
+
+The dashboard visualization (JS)
+
+Development Cycle: We then work side-by-side, on the same task, whether physically or via screen-sharing:
+
+Pair-Programming: One drives (writes code), the other navigates (reviews, researches, plans next steps). We switch roles frequently.
+
+Split-Research & Merge: We sometimes research specific sub-problems separately (e.g., Hugo checks a graphics library, Melissa checks an API design pattern) then immediately reconvene to integrate the findings.
+
+Validation & Integration: We test and integrate the feature together, ensuring it works seamlessly across all three parts of our stack (Game Client → API → Dashboard).
+
+🔧 Tools & Rituals for a Unified Workflow
+
+Daily Co-Working Sessions: Blocked time for synchronized development.
+
+Shared Decision Log: A simple document where we record key technical decisions we made together.
+
+Single Pull Request Policy: Any code merged to the main branch must be reviewed and approved by both members.
 
 #### 🤝 Stakeholders
 
@@ -70,7 +99,7 @@ Idea (Based on SI3LN structure)	SCAMPER Trigger	Description	Feasibility (1-5)	Im
 | B. Multiplayer Arcade with Live Leaderboard | Combine (Game + Real-time) | Game where multiple clients connect for a real-time session. Dashboard with live leaderboard. | 2 | 5 | 10 | ❌ Rejected - Network complexity too high for the allocated time. |
 | C. Data-Rich Arcade with Analytics Dashboard (Selected) | Modify & Put to another use | Event-rich game (kills, bonuses, damage) sending structured data. Dashboard with detailed statistics, charts and insights. | 4 | 5 | 20 | ✅ SELECTED |
 
-2. Selected MVP: Definition & Refinement 🏗️
+### 2. Selected MVP: Definition & Refinement 🏗️
 
 🎯 MVP Title: SI3LN: Arcade Analytics - A cohesive gaming ecosystem.
 

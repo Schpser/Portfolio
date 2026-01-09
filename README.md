@@ -39,12 +39,11 @@
 #### 💡 Work Standards & Synergy
 
 **🤝 Collaboration Model:**  
-We will adopt a "Feature-Pairing" model. For each main feature (e.g., "Score submission"), Hugo will develop the C client and Melissa the API endpoint, with systematic cross-code reviews.
+We will adopt a "Feature-Pairing" model. For each main feature (e.g., "Score submission"), we will collaboratively design, implement, and test it together, ensuring shared understanding and code ownership.
 
 **💬 Communication:**  
-- Daily 15-minute sync sessions (Discord)
+- Daily sync sessions (Discord)
 - Centralized documentation on Notion
-- Task management via Trello (To Do/Doing/Done)
 
 **🎯 Decision-making:**  
 - Consensus for creative choices
@@ -65,9 +64,11 @@ We will adopt a "Feature-Pairing" model. For each main feature (e.g., "Score sub
 We used the **SCAMPER framework** to evolve the pre-structured project (SI3LN) and generate value-added ideas.
 
 Idea (Based on SI3LN structure)	SCAMPER Trigger	Description	Feasibility (1-5)	Impact (1-5)	Score	Verdict
-A. Classic Arcade with Basic Dashboard	-	Jeu simple + dashboard affichant juste le score.	5	2	10	❌ Rejected - Trop basique, ne valorise pas la stack.
-B. Multiplayer Arcade with Live Leaderboard	Combine (Game + Real-time)	Jeu où plusieurs clients se connectent pour une partie en temps réel. Dashboard avec classement live.	2	5	10	❌ Rejected - Complexité réseau trop élevée pour le temps alloué.
-C. Data-Rich Arcade with Analytics Dashboard (Selected)	Modify & Put to another use	Jeu riche en événements (kill, bonus, dégâts) envoyant des données structurées. Dashboard avec statistiques détaillées, graphiques et insights.	4	5	20	✅ SELECTED
+| **Idea (Based on SI3LN structure)** | **SCAMPER Trigger** | **Description** | **Feasibility (1-5)** | **Impact (1-5)** | **Score** | **Verdict** |
+|-------------------------------------|---------------------|-----------------|----------------------|------------------|-----------|-------------|
+| A. Classic Arcade with Basic Dashboard | - | Simple game + dashboard displaying only the score. | 5 | 2 | 10 | ❌ Rejected - Too basic, doesn't showcase the stack. |
+| B. Multiplayer Arcade with Live Leaderboard | Combine (Game + Real-time) | Game where multiple clients connect for a real-time session. Dashboard with live leaderboard. | 2 | 5 | 10 | ❌ Rejected - Network complexity too high for the allocated time. |
+| C. Data-Rich Arcade with Analytics Dashboard (Selected) | Modify & Put to another use | Event-rich game (kills, bonuses, damage) sending structured data. Dashboard with detailed statistics, charts and insights. | 4 | 5 | 20 | ✅ SELECTED |
 2. Selected MVP: Definition & Refinement 🏗️
 🎯 MVP Title: SI3LN: Arcade Analytics - A cohesive gaming ecosystem.
 
@@ -82,9 +83,9 @@ Aspect	Definition
 
 **Specific:** Deliver a game with 1 ship type, 2 enemies, 1 bonus. Dashboard with 3 charts (score over time, event heatmap, success rate).
 
-**Measurable:** The API exposes 3 functional REST endpoints. The C client sends events to POST `/api/game/event`. The dashboard makes at least 2 GET calls.
+**Measurable:** The API exposes 3 functional REST endpoints. The C++ client sends events to POST `/api/game/event`. The dashboard makes at least 2 GET calls.
 
-**Achievable:** Based on known technologies (C, Python/Flask, JS). Pre-existing structure.
+**Achievable:** Based on known technologies (C++, Python/Flask, JS). Pre-existing structure.
 
 **Relevant:** Covers targeted RNCP5 skills: project management, full-stack development, system integration.
 
@@ -106,7 +107,7 @@ Aspect	Definition
 |----------|----------------|-----------|------------------------|
 | Client-API Communication | Medium | High | Define an API contract (OpenAPI) from Stage 2. Use simple JSON. |
 | Unequal Workload | High | Medium | Mandatory Feature-Pairing. Daily sync points. Shared Trello backlog. |
-| C Client Performance | Low | High | Rapid game loop prototyping from week 1. Profiling with Valgrind if needed. |
+| C++ Client Performance | Low | High | Rapid game loop prototyping from week 1. Profiling with Valgrind if needed. |
 | Visual Consistency | Medium | Medium | Hugo is responsible for assets. Color/UI style guide defined before dev. |
 
 ### 3. Executive Summary & MVP Blueprint 👑

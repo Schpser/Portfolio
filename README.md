@@ -69,7 +69,9 @@ Idea (Based on SI3LN structure)	SCAMPER Trigger	Description	Feasibility (1-5)	Im
 | A. Classic Arcade with Basic Dashboard | - | Simple game + dashboard displaying only the score. | 5 | 2 | 10 | ❌ Rejected - Too basic, doesn't showcase the stack. |
 | B. Multiplayer Arcade with Live Leaderboard | Combine (Game + Real-time) | Game where multiple clients connect for a real-time session. Dashboard with live leaderboard. | 2 | 5 | 10 | ❌ Rejected - Network complexity too high for the allocated time. |
 | C. Data-Rich Arcade with Analytics Dashboard (Selected) | Modify & Put to another use | Event-rich game (kills, bonuses, damage) sending structured data. Dashboard with detailed statistics, charts and insights. | 4 | 5 | 20 | ✅ SELECTED |
+
 2. Selected MVP: Definition & Refinement 🏗️
+
 🎯 MVP Title: SI3LN: Arcade Analytics - A cohesive gaming ecosystem.
 
 Aspect	Definition

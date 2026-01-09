@@ -51,7 +51,8 @@ We will adopt a "Feature-Pairing" model. For each main feature (e.g., "Score sub
 - Consensus for creative choices
 - Final technical decision by the domain expert (Hugo for the game, Melissa for the API)
 
-🗂️ Practical Collaboration Framework
+**🗂️ Practical Collaboration Framework**
+
 To implement this principle efficiently within the project structure (game_client_c, backend_api_python, web_dashboard), we use a "Feature-Driven Pairing" workflow:
 
 Feature Kickoff: For each new feature (e.g., "Player Score Submission"), we design the solution together, defining:
@@ -70,7 +71,7 @@ Split-Research & Merge: We sometimes research specific sub-problems separately (
 
 Validation & Integration: We test and integrate the feature together, ensuring it works seamlessly across all three parts of our stack (Game Client → API → Dashboard).
 
-🔧 Tools & Rituals for a Unified Workflow
+**🔧 Tools & Rituals for a Unified Workflow**
 
 Daily Co-Working Sessions: Blocked time for synchronized development.
 

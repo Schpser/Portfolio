@@ -33,7 +33,7 @@
 
 | Member | Primary Role | Strengths & Interests | Initial Responsibilities |
 |--------|-------------|----------------------|------------------------|
-| **Hugo Ramos** | 🎨 Lead Game Developer & Visual Architect | Game logic (C), Visual design, UI/UX sensitivity, Performance optimization | `game_client_c` development, Asset creation/enhancement (`assets_shared/`), Visual consistency across all modules |
+| **Hugo Ramos** | 🎨 Lead Game Developer & Visual Architect | Game logic (C++), Visual design, UI/UX sensitivity, Performance optimization | `game_client_c` development, Asset creation/enhancement (`assets_shared/`), Visual consistency across all modules |
 | **Melissa Sbibih** | ⚙️ Lead Backend Developer & System Architect | API design (Python), Data modeling, Documentation, Full-stack integration | `backend_api_python` development, `web_dashboard` logic, Technical documentation & planning |
 
 #### 💡 Work Standards & Synergy
@@ -81,7 +81,7 @@ Aspect	Definition
 
 **Target Audience** | 1. Casual Gamers (25-35 years old). 2. Data-enthusiasts who enjoy tracking their progress.
 
-**Application Type** | Desktop-based Gaming Ecosystem: Heavy client in C (for performance) + responsive web dashboard (for accessibility).
+**Application Type** | Desktop-based Gaming Ecosystem: Heavy client in C++ (for performance) + responsive web dashboard (for accessibility).
 
 **Why This Idea?** | 1. Perfect alignment with the imposed folder structure. 2. Demonstrates a complete data flow (Client → API → DB → Frontend). 3. Showcases our complementary skills. 4. Scope perfectly manageable by a team of 2.
 
@@ -121,7 +121,7 @@ Aspect	Definition
 | 🔑 Key Element | Description |
 |----------------|-------------|
 | **🔭 Vision** | Make gaming performance measurable, visible, and engaging through data |
-| **🛠️ Tech Stack** | `C` (Client) \| `Python/Flask` (API) \| `SQLite` (DB) \| `HTML/CSS/JS` (Dashboard) \| `Git/GitHub` (SCM) |
+| **🛠️ Tech Stack** | `C++` (Client) \| `Python/Flask` (API) \| `SQLite` (DB) \| `HTML/CSS/JS` (Dashboard) \| `Git/GitHub` (SCM) |
 | **💎 Value Proposition** | 1 product, 2 facets: the thrill of arcade gaming + the introspection of analytics |
 | **🎯 Expected Impact** | Transform a "high score" into a detailed progression story |
 
@@ -144,10 +144,10 @@ This timeline follows the 5-stage curriculum structure.
 | Sprint | Focus | Key Activities |
 |--------|-------|----------------|
 | **🔧 Sprint 1** (Setup) | Environment & Foundation | Dev environment setup, base architecture, API contract validated |
-| **🎮 Sprint 2** (Core Gameplay) | Game Engine | C game engine (movement, shooting, basic collisions) |
-| **🔌 Sprint 3** (Data Pipeline) | API Integration | Operational Python API endpoints, event sending from C client |
+| **🎮 Sprint 2** (Core Gameplay) | Game Engine | C++ game engine (movement, shooting, basic collisions) |
+| **🔌 Sprint 3** (Data Pipeline) | API Integration | Operational Python API endpoints, event sending from C++ client |
 | **📊 Sprint 4** (Dashboard) | Frontend Development | Static web pages, initial charts with mocked data |
-| **🔗 Sprint 5** (Integration) | End-to-End Connection | Complete C→API→DB→Dashboard connection, integration tests |
+| **🔗 Sprint 5** (Integration) | End-to-End Connection | Complete C++→API→DB→Dashboard connection, integration tests |
 | **✨ Sprint 6** (Polish) | Finalization | Visual improvements (assets), finishing touches, demo preparation |
 
 ---

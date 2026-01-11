@@ -217,6 +217,7 @@ This timeline follows the 5-stage curriculum structure.
   <img src=https://github.com/Schpser/Portfolio/blob/main/Pictures/SI3LN_Screens_2.png
     alt="Game Screens 2" width="600">
 </p>
+
 #### 5.2. 🏗️ System Architecture Diagram
 Project structure and data flow (Client ↔ API ↔ DB ↔ Dashboard)
 
@@ -331,4 +332,4 @@ Entity-Relationship Diagram for the SQLite database.
 
 ---
 
-*Last updated: January 9, 2026* 🚀
+*Last updated: January 11, 2026* 🚀

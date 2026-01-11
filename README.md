@@ -108,9 +108,9 @@ Aspect	Definition
 
 **Problem** | Classic arcade games offer an ephemeral experience. Players have no insight into their performance, trends, or history.
 
-**Solution** | Couple an engaging gaming experience (`game_client_c`) with an analytical dashboard (`web_dashboard`) via a robust API (`backend_api_python`), transforming a gaming session into actionable data.
+**Solution** | Coupling an engaging gaming experience (`game_client_c`) with an analytical dashboard (`web_dashboard`) via a robust API (`backend_api_python`), transforming a gaming session into actionable data.
 
-**Target Audience** | 1. Casual Gamers (25-35 years old). 2. Data-enthusiasts who enjoy tracking their progress.
+**Target Audience** | 1. Casual Gamers (25-35 years old). 2. Data enthusiasts who enjoy tracking their progress.
 
 **Application Type** | Desktop-based Gaming Ecosystem: Heavy client in C++ (for performance) + responsive web dashboard (for accessibility).
 
@@ -190,21 +190,116 @@ This timeline follows the 5-stage curriculum structure.
 ### 5. Core Technical Specifications
 
 #### 5.1. 📖 User Stories & Mockups
-*As players, we wanted to combine learning with pleasure by developing our skills while having fun.*
-*As developers, we want to build a complete project that demonstrates our technical and methodological mastery.*
-*Mockups of game UI and dashboard charts (wireframes)*
+
+**Must Have (MVP):**
+*   As a **guest player**, I want to start a game session immediately without creating an account, so I can try the game with zero friction.
+*   As a **registered player**, I want my game progress (lives, active bonuses) to be saved if I disconnect, so I can resume my session later without losing progress.
+*   As a **player**, I want to see my final score and a simple leaderboard after each game, so I can track my performance.
+
+**Should Have:**
+*   As a **registered player**, I want to customize my profile (avatar, username) from the web dashboard.
+
+*(Placeholder for mockup images of the game HUD and dashboard)*
 
 #### 5.2. 🏗️ System Architecture Diagram
 Project structure and data flow (Client ↔ API ↔ DB ↔ Dashboard)
 
-#### 5.3. 💾 Database Schema
-SQLite ER diagram (tables: `games`, `players`, `events`)
+<p align="center">
+  <img src="https://github.com/Schpser/Portfolio/blob/main/Architecture_Diagram.png" alt="Architecture Diagram">
+</p>
 
-#### 5.4. 🔌 API Specification (Swagger/OpenAPI)
-Complete endpoint documentation (`POST /game/event`, `GET /player/stats`)
+**5.3.1 🔄 Sequence Diagram**
+
+<p align="center">
+  <img src="https://github.com/Schpser/Portfolio/blob/main/Sequence_Diagram.png" alt="Sequence Diagram">
+</p>
+
+**5.3.2 Project Structure**
+
+The following directory tree represents the concrete organization of our codebase, reflecting the system architecture:
+```
+├── README.md
+├── assets_shared
+│   ├── backgrounds
+│   ├── fonts
+│   ├── sounds
+│   └── sprites
+│       ├── bonuses
+│       ├── enemies
+│       └── players
+├── backend_api_python
+│   ├── config.py
+│   ├── main.py
+│   ├── requirements.txt
+│   ├── setup.py
+│   ├── src
+│   │   ├── api
+│   │   ├── entities
+│   │   ├── game
+│   │   ├── ui
+│   │   └── utils
+│   ├── tests
+│   │   ├── __init__.py
+│   │   ├── test_collisions.py
+│   │   ├── test_enemy.py
+│   │   └── test_player.py
+│   └── venv
+│       ├── bin
+│       ├── include
+│       ├── lib
+│       ├── lib64 -> lib
+│       └── pyvenv.cfg
+├── documentation
+│   ├── REAC_mapping
+│   ├── technical
+│   │   ├── __init__.py
+│   │   ├── api.md
+│   │   ├── architecture.md
+│   │   └── game_design.md
+│   └── user
+├── game_client_c
+├── infrastructure
+│   ├── ci_cd
+│   │   └── github-actions.yml
+│   ├── docker
+│   │   └── docker-compose.yml
+│   └── monitoring
+└── web_dashboard
+    ├── assets
+    ├── public
+    │   ├── index.html
+    │   ├── script.js
+    │   └── style.css
+    └── src
+```
+
+#### 5.4. 🗄️ ER Diagram
+
+Entity-Relationship Diagram for the SQLite database.
+
+<p align="center">
+  <img src="https://github.com/Schpser/Portfolio/blob/main/ERD_Diagram.png" alt="ER Diagram">
+</p>
 
 #### 5.5. 🧪 SCM & QA Strategy
-Git workflow (adapted Git Flow), test plan (unit tests for API, integration tests)
+*   **SCM (Git):** We use a simplified **Git Flow**. The `main` branch is always deployable. All features are developed in `feature/*` branches via **pair programming**, followed by a Pull Request reviewed by both team members before merging.
+*   **QA & Testing:** For the **Python API**, we implement unit tests with `pytest` for each endpoint. For the **C++ game client**, we perform manual gameplay testing and validation of core mechanics (collisions, scoring). The dashboard is tested for correct data display.
+
+#### 5.6. 🔌 API Specifications
+**Internal API Endpoints (Python/Flask):**
+
+| Endpoint | Method | Description | Request Body (JSON) | Success Response (JSON) |
+| :--- | :--- | :--- | :--- | :--- |
+| `/api/session/start` | POST | Starts a new game session | `{"player_id": 1}` (or empty for guest) | `{"session_id": "abc123", "player_state": {...}}` |
+| `/api/session/{id}/event` | POST | Sends a game event (shot, bonus) | `{"type": "BONUS_COLLECTED", "details": {...}}` | `{"status": "ok"}` |
+| `/api/session/{id}/end` | POST | Ends a session & submits score | `{"final_score": 1500}` | `{"leaderboard_position": 25}` |
+| `/api/player/profile` | GET | Gets player profile (dashboard) | - | `{"username": "Pseudo", "avatar_url": "...", "unlocked_levels": []}` |
+
+#### 5.7. 🧠 Technical Justifications
+*   **C++ for Game Client:** Chosen for **performance and low-level control** required in real-time arcade games, allowing precise management of the game loop, graphics, and collisions.
+*   **Python/Flask for API:** Selected for its **rapid development** speed, simplicity, and rich ecosystem. Ideal for building a robust REST API quickly that handles game data logic and communication.
+*   **SQLite Database:** Perfect for the MVP due to its **zero-configuration, serverless nature**. It simplifies deployment and is fully capable of handling the data load for a single-player/leaderboard-focused game.
+*   **JWT for Authentication:** Provides a **stateless, scalable** way to manage registered player sessions, securely transmitting player identity between the client, API, and web dashboard.
 
 ---
 

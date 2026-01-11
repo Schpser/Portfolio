@@ -207,8 +207,16 @@ This timeline follows the 5-stage curriculum structure.
 *   As a **competitive player**, I want to challenge a friend in a real-time 1v1 duel mode. *(Complexité réseau hors scope MVP)*
 *   As a **streamer**, I want my viewers to see my live stats and leaderboard on an overlay in my stream. *(Intégration OBS/Streaming API hors scope)*
 
-*(Placeholder for mockup images of the game HUD and dashboard)*
-
+### 🎮 Game Client Screenshots (Python Prototype)
+<p align="center">
+  <img src="https://github.com/Schpser/Portfolio/blob/main/Pictures/SI3LN_Home.png
+" alt="Game Home Screen" width="300">
+  <img src="https://github.com/Schpser/Portfolio/blob/main/Pictures/SI3LN_Screens.png
+" alt="Game Screens" width="300">
+</p>
+  <img src=https://github.com/Schpser/Portfolio/blob/main/Pictures/SI3LN_Screens_2.png
+    alt="Game Screens 2" width="600">
+</p>
 #### 5.2. 🏗️ System Architecture Diagram
 Project structure and data flow (Client ↔ API ↔ DB ↔ Dashboard)
 

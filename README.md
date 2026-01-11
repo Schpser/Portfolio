@@ -205,13 +205,13 @@ This timeline follows the 5-stage curriculum structure.
 Project structure and data flow (Client ↔ API ↔ DB ↔ Dashboard)
 
 <p align="center">
-  <img src="https://github.com/Schpser/Portfolio/blob/main/Architecture_Diagram.png" alt="Architecture Diagram">
+  <img src="https://github.com/Schpser/Portfolio/blob/main/Pictures/Architecture_Diagram.png" alt="Architecture Diagram">
 </p>
 
 **5.3.1 🔄 Sequence Diagram**
 
 <p align="center">
-  <img src="https://github.com/Schpser/Portfolio/blob/main/Sequence_Diagram.png" alt="Sequence Diagram">
+  <img src="https://github.com/Schpser/Portfolio/blob/main/Pictures/Sequence_Diagram.png" alt="Sequence Diagram">
 </p>
 
 **5.3.2 Project Structure**
@@ -278,7 +278,7 @@ The following directory tree represents the concrete organization of our codebas
 Entity-Relationship Diagram for the SQLite database.
 
 <p align="center">
-  <img src="https://github.com/Schpser/Portfolio/blob/main/ERD_Diagram.png" alt="ER Diagram">
+  <img src="https://github.com/Schpser/Portfolio/blob/main/Pictures/ERD_Diagram.png" alt="ER Diagram">
 </p>
 
 #### 5.5. 🧪 SCM & QA Strategy

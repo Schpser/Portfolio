@@ -196,61 +196,6 @@ This timeline follows the 5-stage curriculum structure.
 
 #### 5.2. 🏗️ System Architecture Diagram
 Project structure and data flow (Client ↔ API ↔ DB ↔ Dashboard)
-```
-├── README.md
-├── assets_shared
-│   ├── backgrounds
-│   ├── fonts
-│   ├── sounds
-│   └── sprites
-│       ├── bonuses
-│       ├── enemies
-│       └── players
-├── backend_api_python
-│   ├── config.py
-│   ├── main.py
-│   ├── requirements.txt
-│   ├── setup.py
-│   ├── src
-│   │   ├── api
-│   │   ├── entities
-│   │   ├── game
-│   │   ├── ui
-│   │   └── utils
-│   ├── tests
-│   │   ├── __init__.py
-│   │   ├── test_collisions.py
-│   │   ├── test_enemy.py
-│   │   └── test_player.py
-│   └── venv
-│       ├── bin
-│       ├── include
-│       ├── lib
-│       ├── lib64 -> lib
-│       └── pyvenv.cfg
-├── documentation
-│   ├── REAC_mapping
-│   ├── technical
-│   │   ├── __init__.py
-│   │   ├── api.md
-│   │   ├── architecture.md
-│   │   └── game_design.md
-│   └── user
-├── game_client_c
-├── infrastructure
-│   ├── ci_cd
-│   │   └── github-actions.yml
-│   ├── docker
-│   │   └── docker-compose.yml
-│   └── monitoring
-└── web_dashboard
-    ├── assets
-    ├── public
-    │   ├── index.html
-    │   ├── script.js
-    │   └── style.css
-    └── src
-```
 
 #### 5.3. 💾 Database Schema
 SQLite ER diagram (tables: `games`, `players`, `events`)

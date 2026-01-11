@@ -211,6 +211,7 @@ This timeline follows the 5-stage curriculum structure.
 <p align="center">
   <img src="https://github.com/Schpser/Portfolio/blob/main/Pictures/SI3LN_Home.png
 " alt="Game Home Screen" width="300">
+</p>
   <img src="https://github.com/Schpser/Portfolio/blob/main/Pictures/SI3LN_Screens.png
 " alt="Game Screens" width="300">
 </p>

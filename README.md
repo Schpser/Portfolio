@@ -199,6 +199,14 @@ This timeline follows the 5-stage curriculum structure.
 **Should Have:**
 *   As a **registered player**, I want to customize my profile (avatar, username) from the web dashboard.
 
+**Could Have (V2.0):**
+*   As a **player**, I want to unlock and select different spaceship skins after achieving high scores, so that I can personalize my gaming experience.
+*   As a **data enthusiast**, I want to export my gameplay statistics as a CSV file from the dashboard, so that I can analyze them with my own tools.
+
+**Won't Have This Time (Future Vision):**
+*   As a **competitive player**, I want to challenge a friend in a real-time 1v1 duel mode. *(Complexité réseau hors scope MVP)*
+*   As a **streamer**, I want my viewers to see my live stats and leaderboard on an overlay in my stream. *(Intégration OBS/Streaming API hors scope)*
+
 *(Placeholder for mockup images of the game HUD and dashboard)*
 
 #### 5.2. 🏗️ System Architecture Diagram
@@ -295,7 +303,7 @@ Entity-Relationship Diagram for the SQLite database.
 | `/api/session/{id}/end` | POST | Ends a session & submits score | `{"final_score": 1500}` | `{"leaderboard_position": 25}` |
 | `/api/player/profile` | GET | Gets player profile (dashboard) | - | `{"username": "Pseudo", "avatar_url": "...", "unlocked_levels": []}` |
 
-#### 5.7. 🧠 Technical Justifications
+#### 5.7. 🧠 Technical Justifications & Technology Choices
 *   **C++ for Game Client:** Chosen for **performance and low-level control** required in real-time arcade games, allowing precise management of the game loop, graphics, and collisions.
 *   **Python/Flask for API:** Selected for its **rapid development** speed, simplicity, and rich ecosystem. Ideal for building a robust REST API quickly that handles game data logic and communication.
 *   **SQLite Database:** Perfect for the MVP due to its **zero-configuration, serverless nature**. It simplifies deployment and is fully capable of handling the data load for a single-player/leaderboard-focused game.

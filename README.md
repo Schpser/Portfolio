@@ -45,7 +45,6 @@ We will adopt a "Feature-Pairing" model. For each main feature (e.g., "Score sub
 
 **💬 Communication:**  
 - Daily sync sessions (Discord)
-- Centralized documentation on Notion
 
 **🎯 Decision-making:**  
 - Consensus for creative choices

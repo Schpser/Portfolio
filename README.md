@@ -510,82 +510,87 @@ erDiagram
 
 📓 **Development journal for Stage 4 — ARCAD3X Platform (formerly SI3LN_Python)**
 
-> **Note:** During development, the project was renamed from **SI3LN** to **ARCAD3X** — the full-stack gaming platform on which SI3LN (Space Invaders III Last Night) is deployed as the flagship game.
+> **Note:** During development, the project was renamed from **SI3LN** to **ARCAD3X** — the full-stack gaming platform on which SI3LN (Space Invaders model) is deployed as the flagship game.
 
 ---
 
 ### 4.1 Roles & Responsibilities
 
-Although our team of 2 shares full ownership of the codebase (see [Section 0](#0-team-formation--roles-)), we assigned **explicit Stage 4 roles** to ensure organizational rigor:
+Although our team of 2 shares full ownership of the codebase (see Section 0), we covered the following Stage 4 roles together to ensure organizational rigor:
+
+All roles were shared between both team members following our Feature-Pairing model. The table below describes the responsibilities covered, not individual assignments. For final technical decisions: Hugo is the referent for game/visual topics, Melissa is the referent for API/architecture topics.
 
 | Role | Assigned To | Responsibilities |
 |------|-------------|-----------------|
-| **Project Manager (PM)** | Melissa Sbibih | Sprint planning, task prioritization (MoSCoW), progress tracking, deadline management, deviation handling |
-| **Source Control Manager (SCM)** | Melissa Sbibih | Git Flow enforcement, branch integrity, PR reviews, merge strategy, commit quality |
-| **Quality Assurance (QA)** | Hugo Ramos | Test plan development, test execution (unit + integration + E2E), bug reporting, acceptance criteria validation |
-| **Lead Game Developer** | Hugo Ramos | Pygame engine, gameplay mechanics, visual assets, character/level design |
-| **Lead Backend Developer** | Melissa Sbibih | Django API, database models, JWT security, Docker orchestration |
-| **Frontend Developer** | Hugo Ramos & Melissa Sbibih | ARCAD3X dashboard SPA (shared — Feature-Pairing model) |
-
-> **Decision principle:** Hugo has final say on game/visual decisions; Melissa has final say on API/architecture decisions. Dashboard work is consensus-based.
+| **Project Manager (PM)** | Sprint planning, task prioritization (MoSCoW), progress tracking, deadline management, deviation handling |
+| **Source Control Manager (SCM)** | Git Flow enforcement, branch integrity, PR reviews, merge strategy, commit quality |
+| **Quality Assurance (QA)** | Test plan development, test execution (unit + integration + E2E), bug reporting, acceptance criteria validation |
+| **Lead Game Developer** | Pygame engine, gameplay mechanics, visual assets, character/level design |
+| **Lead Backend Developer** | Django API, database models, JWT security, Docker orchestration |
+| **Frontend Developer** | ARCAD3X dashboard SPA (shared — Feature-Pairing model) 
 
 ---
 
 ### 4.2 Sprint Planning & MoSCoW Prioritization
-
-Each sprint was 1 week. Tasks were prioritized using MoSCoW and assigned with clear ownership.
-
+ 
+Tasks were prioritized using MoSCoW. All tasks were worked on collaboratively following our Feature-Pairing model.
+ 
 #### Sprint Backlog — MoSCoW Breakdown
-
-| ID | User Story / Task | MoSCoW | Sprint | Owner | Dependencies | Status |
-|----|-------------------|--------|--------|-------|-------------|--------|
-| **T01** | Docker Compose multi-service setup | **Must Have** | Sprint 1 | Melissa | None | ✅ Done |
-| **T02** | Django project scaffolding + Ninja router | **Must Have** | Sprint 1 | Melissa | T01 | ✅ Done |
-| **T03** | Database models (Player, GameSession, World) | **Must Have** | Sprint 1 | Melissa | T02 | ✅ Done |
-| **T04** | Git Flow setup + branch protection | **Must Have** | Sprint 1 | Melissa (SCM) | None | ✅ Done |
-| **T05** | GitHub Actions CI workflow | **Should Have** | Sprint 1 | Melissa | T04 | ✅ Done |
-| **T06** | Pygame game state machine | **Must Have** | Sprint 2 | Hugo | None | ✅ Done |
-| **T07** | Player entity (movement, boundaries) | **Must Have** | Sprint 2 | Hugo | T06 | ✅ Done |
-| **T08** | Enemy entity (AI, scaling difficulty) | **Must Have** | Sprint 2 | Hugo | T06 | ✅ Done |
-| **T09** | Bullets, Explosions, Bonus, SpecialAttack | **Must Have** | Sprint 2 | Hugo | T07, T08 | ✅ Done |
-| **T10** | 5 game worlds + level selector | **Should Have** | Sprint 2 | Hugo | T06 | ✅ Done |
-| **T11** | 7+ playable characters | **Should Have** | Sprint 2 | Hugo | T06 | ✅ Done |
-| **T12** | Responsive/Fullscreen support | **Should Have** | Sprint 2 | Hugo | T06 | ✅ Done |
-| **T13** | `config.ini` user-editable settings | **Could Have** | Sprint 2 | Hugo | T06 | ✅ Done |
-| **T14** | Auth endpoints (register, login, logout, refresh) | **Must Have** | Sprint 3 | Melissa | T03 | ✅ Done |
-| **T15** | Player CRUD endpoints | **Must Have** | Sprint 3 | Melissa | T03 | ✅ Done |
-| **T16** | Game session endpoints (create, update, end) | **Must Have** | Sprint 3 | Melissa | T03, T14 | ✅ Done |
-| **T17** | Profile endpoints + avatar upload | **Should Have** | Sprint 3 | Melissa | T15 | ✅ Done |
-| **T18** | Leaderboard + Stats endpoints | **Must Have** | Sprint 3 | Melissa | T16 | ✅ Done |
-| **T19** | JWT security (pepper, blacklist, rate limiting) | **Must Have** | Sprint 3 | Melissa | T14 | ✅ Done |
-| **T20** | Worlds & Achievements endpoints | **Could Have** | Sprint 3 | Melissa | T03 | ✅ Done |
-| **T21** | `api_client.py` — game ↔ API integration | **Must Have** | Sprint 3 | Both | T14, T06 | ✅ Done |
-| **T22** | SPA architecture + AppManager | **Must Have** | Sprint 4 | Both | None | ✅ Done |
-| **T23** | API Facade service (security wrapper) | **Must Have** | Sprint 4 | Melissa | T22 | ✅ Done |
-| **T24** | Login + Signup UI (live validation) | **Must Have** | Sprint 4 | Hugo | T22 | ✅ Done |
-| **T25** | Profile page (avatar, bio, stats, scores) | **Should Have** | Sprint 4 | Both | T22, T17 | ✅ Done |
-| **T26** | Games page + game play iframe | **Must Have** | Sprint 4 | Hugo | T22 | ✅ Done |
-| **T27** | Help & Support (tutorials, reports) | **Should Have** | Sprint 4 | Hugo | T22 | ✅ Done |
-| **T28** | Global search (players, games, help) | **Could Have** | Sprint 4 | Melissa | T22 | ✅ Done |
-| **T29** | i18n (EN/FR) | **Could Have** | Sprint 4 | Both | T22 | ✅ Done |
-| **T30** | Mobile support (touch, gestures, responsive) | **Should Have** | Sprint 4 | Hugo | T22 | ✅ Done |
-| **T31** | Role-based UI (admin/player/guest) | **Must Have** | Sprint 4 | Melissa | T23 | ✅ Done |
-| **T32** | Settings page (admin-only) | **Could Have** | Sprint 4 | Melissa | T31 | ✅ Done |
-| **T33** | End-to-end Game→API→DB→Dashboard flow | **Must Have** | Sprint 5 | Both | T21, T22 | ✅ Done |
-| **T34** | Token lifecycle (auto-expiry, cleanup, 401 handler) | **Must Have** | Sprint 5 | Melissa | T19, T23 | ✅ Done |
-| **T35** | 16 automated test suites | **Must Have** | Sprint 5 | Hugo (QA) | T33 | ✅ Done |
-| **T36** | Arcade fonts + visual polish | **Should Have** | Sprint 6 | Hugo | T22 | ✅ Done |
-| **T37** | Game assets (sprites, backgrounds, icons) | **Must Have** | Sprint 6 | Hugo | T06 | ✅ Done |
-| **T38** | Pygbag WebAssembly build | **Should Have** | Sprint 6 | Melissa | T06 | ✅ Done |
-| **T39** | Final documentation + README | **Must Have** | Sprint 6 | Both | All | ✅ Done |
+ 
+| ID | User Story / Task | MoSCoW | Sprint | Dependencies | Status |
+|----|-------------------|--------|--------|-------------|--------|
+| **T01** | Docker Compose multi-service setup | **Must Have** | Sprint 1 | None | ✅ Done |
+| **T02** | Django project scaffolding + Ninja router | **Must Have** | Sprint 1 | T01 | ✅ Done |
+| **T03** | Database models (Player, GameSession, World) | **Must Have** | Sprint 1 | T02 | ✅ Done |
+| **T04** | Git Flow setup + branch protection | **Must Have** | Sprint 1 | None | ✅ Done |
+| **T05** | GitHub Actions CI workflow | **Should Have** | Sprint 1 | T04 | ✅ Done |
+| **T06** | Pygame game state machine | **Must Have** | Sprint 2 | None | ✅ Done |
+| **T07** | Player entity (movement, boundaries) | **Must Have** | Sprint 2 | T06 | ✅ Done |
+| **T08** | Enemy entity (AI, scaling difficulty) | **Must Have** | Sprint 2 | T06 | ✅ Done |
+| **T09** | Bullets, Explosions, Bonus, SpecialAttack | **Must Have** | Sprint 2 | T07, T08 | ✅ Done |
+| **T10** | 5 game worlds + level selector | **Should Have** | Sprint 2 | T06 | ✅ Done |
+| **T11** | 7+ playable characters | **Should Have** | Sprint 2 | T06 | ✅ Done |
+| **T12** | Responsive/Fullscreen support | **Should Have** | Sprint 2 | T06 | ✅ Done |
+| **T13** | `config.ini` user-editable settings | **Could Have** | Sprint 2 | T06 | ✅ Done |
+| **T14** | Auth endpoints (register, login, logout, refresh) | **Must Have** | Sprint 3 | T03 | ✅ Done |
+| **T15** | Player CRUD endpoints | **Must Have** | Sprint 3 | T03 | ✅ Done |
+| **T16** | Game session endpoints (create, update, end) | **Must Have** | Sprint 3 | T03, T14 | ✅ Done |
+| **T17** | Profile endpoints + avatar upload | **Should Have** | Sprint 3 | T15 | ✅ Done |
+| **T18** | Leaderboard + Stats endpoints | **Must Have** | Sprint 3 | T16 | ✅ Done |
+| **T19** | JWT security (pepper, blacklist, rate limiting) | **Must Have** | Sprint 3 | T14 | ✅ Done |
+| **T20** | Worlds & Achievements endpoints | **Could Have** | Sprint 3 | T03 | ✅ Done |
+| **T21** | `api_client.py` — game ↔ API integration | **Must Have** | Sprint 3 | T14, T06 | ✅ Done |
+| **T22** | SPA architecture + AppManager | **Must Have** | Sprint 4 | None | ✅ Done |
+| **T23** | API Facade service (security wrapper) | **Must Have** | Sprint 4 | T22 | ✅ Done |
+| **T24** | Login + Signup UI (live validation) | **Must Have** | Sprint 4 | T22 | ✅ Done |
+| **T25** | Profile page (avatar, bio, stats, scores) | **Should Have** | Sprint 4 | T22, T17 | ✅ Done |
+| **T26** | Games page + game play iframe | **Must Have** | Sprint 4 | T22 | ✅ Done |
+| **T27** | Help & Support (tutorials, reports) | **Should Have** | Sprint 4 | T22 | ✅ Done |
+| **T28** | Role-based UI (admin/player/guest) | **Must Have** | Sprint 4 | T23 | ✅ Done |
+| **T29** | Settings page (admin-only) | **Could Have** | Sprint 4 | T28 | ✅ Done |
+| **T30** | About page | **Could Have** | Sprint 4 | T22 | ✅ Done |
+| **T31** | Global search (players, games, help) | **Could Have** | Sprint 4 | T22 | ✅ Done |
+| **T32** | i18n system (EN/FR) | **Should Have** | Sprint 4 | T22 | 🔄 In Progress |
+| **T33** | Mobile support (touch, gestures, responsive) | **Should Have** | Sprint 4 | T22 | 🔄 In Progress |
+| **T34** | End-to-end Game→API→DB→Dashboard flow | **Must Have** | Sprint 5 | T21, T22 | ✅ Done |
+| **T35** | Token lifecycle (auto-expiry, cleanup, 401 handler) | **Must Have** | Sprint 5 | T19, T23 | ✅ Done |
+| **T36** | Automated test suites (18 suites) | **Must Have** | Sprint 5 | T34 | ✅ Done |
+| **T37** | Arcade fonts + visual polish | **Should Have** | Sprint 6 | T22 | ✅ Done |
+| **T38** | Game assets (sprites, backgrounds, icons) | **Must Have** | Sprint 6 | T06 | ✅ Done |
+| **T39** | Pygbag WebAssembly build | **Should Have** | Sprint 6 | T06 | ✅ Done |
+| **T40** | Final documentation + README | **Must Have** | Sprint 6 | All | ✅ Done |
 
 **MoSCoW Summary:**
-| Priority | Count | Completion |
-|----------|-------|------------|
-| **Must Have** | 22 tasks | 22/22 (100%) |
-| **Should Have** | 11 tasks | 11/11 (100%) |
-| **Could Have** | 6 tasks | 6/6 (100%) |
-| **Won't Have** | 3 items | Deferred to V2 (real-time multiplayer, OAuth, ML analytics) |
+ 
+| Priority | Count | Completed | In Progress | Completion |
+|----------|-------|-----------|-------------|------------|
+| **Must Have** | 20 tasks | 20 | 0 | 20/20 (100%) |
+| **Should Have** | 12 tasks | 10 | 2 | 10/12 (83%) |
+| **Could Have** | 5 tasks | 5 | 0 | 5/5 (100%) |
+| **Won't Have** | 3 items | — | — | Deferred to V2 (real-time multiplayer, OAuth, ML analytics) |
+| **Total** | **40** | **38** | **2** | **38/40 (95%)** |
+ 
+> ✅ All **Must Have** tasks completed (100%). The 2 in-progress items (i18n translations, mobile optimization) are **Should Have** features with working foundations — the systems are built, completion is ongoing. The project is functionally complete and meets all MVP objectives, with some polish and enhancements still in progress.
 
 ---
 
@@ -600,22 +605,29 @@ During the MVP phase, we made key technology pivots from the original Stage 2 pl
 | **Database** | SQLite | **PostgreSQL 15** (Docker) + SQLite (dev fallback) | Production-ready, concurrent access, better data integrity |
 | **Authentication** | Basic JWT | **Custom JWT with SHA-256 pepper, blacklisting, rate limiting** | Security-first approach with token rotation and expiry |
 | **Deployment** | Manual | **Docker Compose** (5 services: PostgreSQL, Redis, API, Nginx, Pygbag builder) | Reproducible, isolated, one-command startup |
-| **Frontend** | HTML/CSS/JS + Chart.js | **SPA Dashboard** (vanilla JS, modular architecture, i18n EN/FR) | Single-page navigation, API facade pattern, mobile-responsive |
+| **Frontend** | HTML/CSS/JS + Chart.js | **SPA Dashboard** (vanilla JS, modular architecture, i18n EN/FR in progress) | Single-page navigation, API facade pattern, mobile-responsive |
 
 ---
 
-### 4.4 Sprint Execution Logs
-
-#### 🔧 Sprint 1 — Environment & Foundation
-**Focus:** Dev environment setup, base architecture, API contract validation
-
+#### 📊 Sprint 4 — Web Dashboard (ARCAD3X)
+**Focus:** Frontend SPA development, data visualization, UX
+ 
 | Deliverable | Status | Details |
 |-------------|--------|---------|
-| Docker Compose orchestration | ✅ | 5 services: `db` (PostgreSQL 15), `redis` (7-alpine), `api` (Django), `frontend` (Nginx 1.25), `game-builder` (Pygbag) |
-| Django project scaffolding | ✅ | `si3ln_api` project with `game` app, Django Ninja API router |
-| Database models | ✅ | `Player`, `GameSession`, `World`, `Achievement`, `PlayerAchievement` models with full migrations |
-| Git Flow setup | ✅ | `main` branch + `feature/*` branches, single PR policy enforced |
-| CI config | ✅ | GitHub Actions workflow defined in `infrastructure/ci_cd/github-actions.yml` |
+| SPA architecture | ✅ | Modular JS: `AppManager` → `AuthManager`, `ProfileManager`, `GamesManager`, `HelpManager`, `MobileManager`, `SearchService` |
+| API Facade pattern | ✅ | `ApiFacadeService` wraps raw `APIClient` — no token exposure to callers, input validation, response sanitization |
+| Home page | ✅ | Welcome banner, SI3LN game card (click-to-play), Top 3 leaderboard, player profile preview |
+| Authentication UI | ✅ | Login form (username/password), Signup form (email, pseudo, password with live validation — length/number/uppercase, profanity check, password match), terms acceptance |
+| Profile page | ✅ | Avatar display/upload, username, bio, stats (total score, games played, highest level, achievements), top 5 best scores, background color customization, privacy toggle |
+| Games page | ✅ | SI3LN game card (playable), 3 "Coming Soon" placeholders, game carousel navigation |
+| Game play page | ✅ | Full-screen iframe, loading overlay, game-themed background, fullscreen toggle, exit button, guest info banner, prev/next game navigation |
+| Help & Support | ✅ | 4 sections: Games Tutorial (controls, scoring, tips), Report Player (downloadable .txt), Report Bug (downloadable .txt with auto browser detection), Support Us (donation info) |
+| Settings (admin-only) | ✅ | Platform statistics display, link to Django admin panel |
+| About page | ✅ | Team info, version display |
+| Global search | ✅ | Unified search across players, games, help articles — debounced (300ms), cached (60s), max 20 results |
+| i18n | 🔄 | `data-i18n` attribute system implemented and functional, language switcher in top bar. French translations partially complete — full coverage in progress |
+| Mobile support | 🔄 | Dashboard renders correctly on mobile screens (responsive CSS). Touch optimization (gestures, haptic feedback, pull-to-refresh) planned for next phase |
+| Role-based UI | ✅ | `.admin-only`, `.player-only`, `.guest-only` CSS classes dynamically toggled based on JWT role |
 
 #### 🎮 Sprint 2 — Core Gameplay (Game_Python)
 **Focus:** Pygame game engine — movement, shooting, collisions, state machine
@@ -723,13 +735,11 @@ During the MVP phase, we made key technology pivots from the original Stage 2 pl
 | Magic-byte validation on avatar uploads prevents file-type spoofing | Player stats double-counting on session re-PATCH — fixed with `was_completed` flag | Always test idempotency of PATCH endpoints |
 
 #### Sprint 4 Review — Web Dashboard
-**Demo:** Full ARCAD3X SPA with login, signup, profile, games, help, search, i18n, mobile gestures.
+**Demo:** Full ARCAD3X SPA with login, signup, profile, games, help
 
 | What went well | Challenges faced | Improvements for next sprint |
 |----------------|-----------------|------------------------------|
 | API Facade pattern keeps tokens completely hidden from UI code | SPA routing without a framework required manual page show/hide logic | Consider a lightweight router for V2 |
-| i18n with `data-i18n` attributes makes translation management easy | Search service needed caching to avoid excessive API calls | Implemented 60s TTL cache with 100-entry limit |
-| Mobile swipe gestures feel natural | Some touch events conflicted with native browser behaviors (scroll, zoom) | Use `{ passive: true }` and targeted `preventDefault()` |
 
 #### Sprint 5 Review — Integration & E2E
 **Demo:** Complete flow: Register on Dashboard → Play game → Score submitted → Leaderboard updated → Profile stats reflect new score.
@@ -762,55 +772,57 @@ During the MVP phase, we made key technology pivots from the original Stage 2 pl
 - Write tests in parallel with development (TDD) rather than in a dedicated sprint
 - Implement Redis-backed token blacklisting from the start
 - Use a lightweight frontend framework (Lit, Alpine.js) instead of vanilla JS for complex SPA logic
+- Complete i18n translations and mobile optimization before marking them as done in the backlog — honest status tracking matters more than perfect metrics
 
 ---
 
 ### 4.6 Progress Monitoring & Metrics
-
+ 
 #### Daily Stand-Up Structure
 We held **daily sync sessions via Discord** (as defined in our collaboration model) following this format:
 1. **What did I complete yesterday?**
 2. **What will I do today?**
 3. **Any blockers?**
-
+ 
 Stand-ups were kept under 15 minutes. Blockers were escalated immediately via pair-programming sessions.
-
+ 
 #### Sprint Velocity
-
-| Sprint | Planned Tasks | Completed Tasks | Velocity | Notes |
-|--------|--------------|-----------------|----------|-------|
-| Sprint 1 | 5 | 5 | 100% | Clean sprint, foundation work |
-| Sprint 2 | 8 | 8 | 100% | Hugo shipped all gameplay features on time |
-| Sprint 3 | 8 | 8 | 100% | All API endpoints + security delivered |
-| Sprint 4 | 11 | 11 | 100% | Largest sprint — dashboard SPA with all pages |
-| Sprint 5 | 5 | 5 | 100% | Integration + full test suite |
-| Sprint 6 | 6 | 6 | 100% | Polish + documentation |
-| **Total** | **43** | **43** | **100%** | **0 tasks deferred or dropped** |
-
+ 
+| Sprint | Planned Tasks | Completed Tasks | In Progress | Velocity | Notes |
+|--------|--------------|-----------------|-------------|----------|-------|
+| Sprint 1 | 5 | 5 | 0 | 100% | Clean sprint, foundation work |
+| Sprint 2 | 8 | 8 | 0 | 100% | All gameplay features delivered on time |
+| Sprint 3 | 8 | 8 | 0 | 100% | All API endpoints + security delivered |
+| Sprint 4 | 12 | 10 | 2 | 83% | i18n and mobile support in progress |
+| Sprint 5 | 3 | 3 | 0 | 100% | Integration + full test suite |
+| Sprint 6 | 4 | 4 | 0 | 100% | Polish + documentation |
+| **Total** | **40** | **38** | **2** | **95%** | **2 tasks in progress (Should Have)** |
+ 
 #### Task Completion Over Time
-
+ 
 ```
-Sprint:    S1     S2     S3     S4     S5     S6
-Planned:    5      8      8     11      5      6    = 43
-Done:       5      8      8     11      5      6    = 43
-Cumul:      5     13     21     32     37     43
+Sprint:    S1     S2     S3     S4      S5     S6
+Planned:    5      8      8     12       3      4    = 40
+Done:       5      8      8     10       3      4    = 38
+Cumul:      5     13     21     31      34     38
             ██
             ██    ████
             ██    ████   ████
             ██    ████   ████   ██████
-            ██    ████   ████   ██████  ████
-            ██    ████   ████   ██████  ████   ████
+            ██    ████   ████   ██████  ██
+            ██    ████   ████   ██████  ██     ██
 ```
-
+ 
 #### Key Performance Indicators
-
+ 
 | Metric | Value |
 |--------|-------|
-| Total tasks completed | 43/43 (100%) |
-| MoSCoW Must Have completion | 22/22 (100%) |
-| Average sprint velocity | 7.2 tasks/sprint |
-| Bug resolution rate | 100% (all found bugs fixed before sprint end) |
-| Test suites passing | 16/16 |
+| Total tasks completed | 38/40 (95%) |
+| Tasks in progress | 2/40 (i18n, mobile — Should Have) |
+| MoSCoW Must Have completion | 20/20 (100%) |
+| Average sprint velocity | 6.3 tasks/sprint |
+| Bug resolution rate | 100% for fixed bugs (10/10), 3 known issues open |
+| Test suites passing | 18/18 |
 | Code review completion | 100% (all PRs reviewed by both members) |
 | Sprint deadline adherence | 6/6 sprints on time |
 
@@ -832,14 +844,20 @@ Bugs were tracked during QA testing (Sprint 5) and resolved before the sprint en
 | BUG-008 | Sprint 5 | 🟢 Low | Touch events conflicting with native scroll on mobile | Global touch handlers preventing default scroll | Used `{ passive: true }` and targeted `preventDefault()` only on game controls ([mobile.js](mobile.js)) | ✅ Fixed |
 | BUG-009 | Sprint 5 | 🟡 Medium | Rate limiting test flaky due to timing issues | Rate limit window overlap between test runs | Added configurable delay and retry logic in test runner | ✅ Fixed |
 | BUG-010 | Sprint 3 | 🔴 High | Avatar upload endpoint accepting non-image files with spoofed Content-Type | Only checking `content_type` header, not actual file bytes | Implemented magic-byte validation (PNG: `\x89PNG`, JPEG: `\xff\xd8\xff`, GIF: `GIF8`, WebP: `RIFF`) ([api.py](api.py)) | ✅ Fixed |
-
+| BUG-011 | Sprint 6 | 🟡 Medium | Game loading slow (~15-30s) due to Pygbag CDN fetch (~24MB game.tar.gz) | External CDN latency for WASM bundle | Mitigated with retro-futuristic loading screen. Self-hosting planned for V2 | 🔄 Open (workaround) |
+| BUG-012 | Sprint 4 | 🟢 Low | Some dashboard pages/components not yet translated to French | i18n translations incomplete | `data-i18n` system works, translations being completed | 🔄 Open |
+| BUG-013 | Sprint 4 | 🟢 Low | Mobile UX not fully optimized (no touch gestures, basic responsive only) | Mobile optimization not yet prioritized | Dashboard renders correctly, full touch UX planned | 🔄 Open |
+ 
 **Bug Summary:**
-| Severity | Count | Resolution Rate |
-|----------|-------|----------------|
-| 🔴 High | 3 | 3/3 (100%) |
-| 🟡 Medium | 5 | 5/5 (100%) |
-| 🟢 Low | 2 | 2/2 (100%) |
-| **Total** | **10** | **10/10 (100%)** |
+ 
+| Severity | Count | Fixed | Open |
+|----------|-------|-------|------|
+| 🔴 High | 3 | 3 | 0 |
+| 🟡 Medium | 6 | 5 | 1 |
+| 🟢 Low | 4 | 2 | 2 |
+| **Total** | **13** | **10 (77%)** | **3 (23%)** |
+ 
+> All **High severity** bugs are resolved. Open items have workarounds in place or are planned for the next development phase.
 
 ---
 
@@ -853,7 +871,7 @@ Bugs were tracked during QA testing (Sprint 5) and resolved before the sprint en
 - **E2E tests:** Full flow from registration → game play → score submission → leaderboard verification
 - **Edge case tests:** Auth edge cases, session edge cases, avatar upload edge cases
 
-#### 4.8.2 Test Suite Inventory (16 Suites)
+#### 4.8.2 Test Suite Inventory (18 Suites)
 
 | # | Test Suite | File | Focus | Type |
 |---|-----------|------|-------|------|
@@ -942,7 +960,7 @@ main (always deployable)
   └── ...
 ```
 
-#### 4.9.2 Branch Strategy Rules (Enforced by SCM — Melissa)
+#### 4.9.2 Branch Strategy Rules (Enforced by SCM )
 
 | Rule | Implementation |
 |------|---------------|
@@ -1032,7 +1050,7 @@ chore: update Docker Compose with Redis service
 #### 4.10.4 Database Design — Entity Relationships
 
 ```
-┌──────────────┐     1:N     ┌───────────────┐
+┌──────────────┐     1:N     ┌────────────────┐
 │     User     │────────────►│    Player      │
 │  (Django)    │             │  username      │
 │  id, username│             │  total_score   │
@@ -1044,15 +1062,15 @@ chore: update Docker Compose with Redis service
                                      │
                             1:N      │      N:1
                     ┌────────────────┼────────────────┐
-                    │                │                 │
-              ┌─────▼─────┐   ┌─────▼──────┐   ┌─────▼──────────┐
+                    │                │                │
+              ┌─────▼──────┐   ┌─────▼──────┐   ┌─────▼──────────┐
               │GameSession │   │PlayerAchiev│   │    World       │
               │ score      │   │ earned_at  │   │ name           │
               │ level      │   │ unlocked_at│   │ description    │
               │ completed  │   └─────┬──────┘   │ bullet_color   │
-              │ started_at │         │           │ enemy_count    │
-              │ ended_at   │         │N:1        └────────────────┘
-              └─────┬──────┘   ┌─────▼──────┐
+              │ started_at │         │          │ enemy_count    │
+              │ ended_at   │         │N:1       └────────────────┘
+              └─────┬──────┘   ┌─────▼───────┐
                     │N:1       │ Achievement │
                     │          │ name        │
                     ▼          │ points      │
@@ -1219,19 +1237,19 @@ Our game runs inside an `<iframe>` on the dashboard. If we exposed raw JWTs to t
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Docker Compose Network                       │
-│                                                                  │
-│  ┌──────────┐    ┌──────────────┐    ┌──────────────────────┐   │
-│  │ PostgreSQL│◄───│  Django API  │◄───│  Nginx Frontend      │   │
-│  │  15-alpine│    │  + Ninja     │    │  (ARCAD3X Dashboard) │   │
-│  │  :5432    │    │  :8000       │    │  :80                 │   │
-│  └──────────┘    └──────┬───────┘    └──────────┬───────────┘   │
-│                         │                        │               │
+│                     Docker Compose Network                      │
+│                                                                 │
+│  ┌───────────┐    ┌──────────────┐    ┌──────────────────────┐  │
+│  │ PostgreSQL│◄───│  Django API  │◄───│  Nginx Frontend      │  │
+│  │  15-alpine│    │  + Ninja     │    │  (ARCAD3X Dashboard) │  │
+│  │  :5432    │    │  :8000       │    │  :80                 │  │
+│  └───────────┘    └──────┬───────┘    └──────────┬───────────┘  │
+│                         │                        │              │
 │  ┌──────────┐           │            ┌───────────┴──────────┐   │
 │  │  Redis   │◄──────────┘            │  Pygbag Game Build   │   │
 │  │  7-alpine│                        │  (SI3LN → WASM)      │   │
 │  │  :6379   │                        └──────────────────────┘   │
-│  └──────────┘                                                    │
+│  └──────────┘                                                   │
 └─────────────────────────────────────────────────────────────────┘
 
 Data Flow:

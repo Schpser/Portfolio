@@ -36,6 +36,8 @@
    - [4.13 Codebase Metrics](#413-codebase-metrics)
 
    > 📄 **Companion document:** [USER_MANUAL.md](USER_MANUAL.md) — Full reference of every user action (frontend dashboard + backend API + admin operations) in the ARCAD3X platform.
+   > 📄 **Companion document:** [FRONTEND_COMMANDS.md](FRONTEND_COMMANDS.md) — Detailed documentation of all frontend commands and interactions in the ARCAD3X dashboard.
+   
 
 5. **[PART 5: Project Closure](#part-5-project-closure-to-come-)** (Stage 5 - To Come) ⚪
    - Final Report & Demo

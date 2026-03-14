@@ -1274,10 +1274,214 @@ Data Flow:
 
 ---
 
-## PART 5: Project Closure (To Come)
+# Portfolio Part 5 — Project Closure
 
-📋 Final report for Stage 5.
+## ARCAD3X / SI3LN (Space Invaders III Last Night)
+
+**Team:** Mélissa · Hugo Ramos  
+**Date:** March 2026  
+**Program:** Holberton School France — Full-Stack Specialization  
 
 ---
 
-*Last updated: March 12, 2026* 🚀
+## Table of Contents
+
+1. [Results Summary](#1-results-summary)  
+2. [Lessons Learned](#2-lessons-learned)  
+3. [Team Retrospective](#3-team-retrospective)  
+4. [Presentation Outline](#4-presentation-outline)  
+5. [Conclusion & Future Recommendations](#5-conclusion--future-recommendations)  
+
+---
+
+## 1. Results Summary
+
+### 1.1 Project Overview
+
+ARCAD3X is a full-stack retro-arcade web platform featuring **SI3LN** (Space Invaders III Last Night), a Python/Pygame browser game compiled to WebAssembly via Pygbag. The platform includes a Django Ninja REST API, a vanilla JavaScript single-page application (SPA) dashboard, a PostgreSQL database, and Docker Compose orchestration — all served through Nginx as a reverse proxy.
+
+### 1.2 MVP Objectives vs. Outcomes
+
+| Objective (from Project Charter) | Status | Notes |
+|---|---|---|
+| Playable Space Invaders game in browser | ✅ Achieved | Python/Pygame compiled via Pygbag to ~24 MB WASM bundle |
+| User authentication (register/login) | ✅ Achieved | JWT-based auth with access + refresh tokens |
+| Persistent leaderboard | ✅ Achieved | Global leaderboard synced between local & Docker environments |
+| REST API for scores & user data | ✅ Achieved | Django Ninja API with full CRUD endpoints |
+| SPA dashboard (vanilla JS) | ✅ Achieved | No framework dependency, pure JS front-end |
+| Docker Compose deployment | ✅ Achieved | Multi-container orchestration (API, DB, Nginx, game) |
+| Mobile-responsive layout | ✅ Achieved | Dedicated `/mobile` route with separate Nginx folder structure |
+| CI/CD pipeline | ⚠️ Partial | Docker-based deployment, but no automated CI pipeline |
+
+**Overall MVP completion: ~90% of planned features delivered.**
+
+### 1.3 Key Metrics
+
+- **Sprint velocity:** Averaged 18–22 story points per sprint across 3 development sprints.
+- **Bug resolution rate:** 100% of critical bugs identified during QA were resolved before delivery.
+- **Test coverage:** Unit and integration tests implemented for core API endpoints (authentication, leaderboard, score submission).
+- **Codebase:** Python (game + API), JavaScript (SPA), PostgreSQL, Docker Compose, Nginx configuration.
+- **Load time optimization:** Custom retro-futuristic loading screen with multi-layer progress detection masks Pygbag's ~24 MB WASM asset load time, providing visual feedback across four loading phases.
+
+### 1.4 Architecture Highlights
+
+The final architecture follows a clean separation of concerns:
+
+- **Game layer:** Python/Pygame → Pygbag WASM, runs entirely in the browser.
+- **API layer:** Django Ninja REST framework with JWT authentication and a Security Facade pattern to centralize auth logic.
+- **Frontend layer:** Vanilla JavaScript SPA communicating with the API via fetch calls.
+- **Infrastructure layer:** Docker Compose with PostgreSQL, Nginx reverse proxy handling static file serving, API proxying, and Pygbag CDN proxy routing (`sub_filter` URL rewriting + `/pygbag-cdn/` proxy pass to `pygame-web.github.io`).
+- **Mobile layer:** Independent `/mobile` route and folder structure served by Nginx for a teammate's dedicated mobile development.
+
+---
+
+## 2. Lessons Learned
+
+### 2.1 What Went Well
+
+**Security Facade Pattern**  
+Implementing a centralized Security Facade for JWT authentication proved to be one of the best architectural decisions of the project. Instead of scattering authentication checks across every endpoint, the facade provided a single entry point for token validation, refresh logic, and error handling. This made the codebase significantly easier to maintain and debug — when the JWT token refresh bug surfaced, the fix was localized to one module rather than spread across the entire API.
+
+**Docker Compose Orchestration**  
+Adopting Docker Compose early in the development process paid dividends. It ensured parity between development and production environments, made onboarding straightforward (a single `docker-compose up` to run the full stack), and forced the team to think about service boundaries from day one. The leaderboard inconsistency bug between local and Docker environments was ultimately traced to a database connection configuration mismatch — a problem that would have been far harder to diagnose without containerized isolation.
+
+**Sprint Planning & Velocity Tracking**  
+Maintaining consistent sprint planning with story point estimation and velocity tracking provided real visibility into project progress. It helped the team make informed decisions about scope adjustments and identify when tasks were consistently underestimated.
+
+**Retro-Futuristic Loading Screen**  
+Building a custom loading screen with animated progress phases turned a potential UX pain point (a ~24 MB WASM download) into a branded experience. The multi-layer progress detection approach gave users meaningful feedback rather than a blank screen during the load.
+
+### 2.2 Challenges & How They Were Addressed
+
+**JWT Token Refresh Bug**  
+- *What happened:* Users were intermittently logged out when their access token expired, even though a refresh token was available. The refresh flow silently failed under specific timing conditions.
+- *Root cause:* A race condition in the frontend fetch interceptor where concurrent requests both attempted to refresh the token simultaneously, causing the second request to use an already-invalidated refresh token.
+- *Resolution:* Implemented a token refresh queue — the first expired-token request triggers a refresh, and all subsequent requests wait for that refresh to complete before retrying with the new token.
+- *Takeaway:* Auth flows need to be tested under realistic concurrent-request conditions, not just sequential happy paths.
+
+**Leaderboard Inconsistency (Local vs. Docker)**  
+- *What happened:* Scores saved locally appeared correctly on the leaderboard, but the same flow in Docker showed stale or missing entries.
+- *Root cause:* The local development setup was inadvertently connecting to a SQLite fallback rather than the PostgreSQL container, causing data to be written to two different databases.
+- *Resolution:* Enforced a single database configuration through environment variables validated at startup, with an explicit error if the PostgreSQL connection fails.
+- *Takeaway:* Environment-specific configurations must be validated at application startup, not assumed correct. A "fail loud" approach prevents silent misconfigurations.
+
+**Nginx + Pygbag CDN Routing Conflict**  
+- *What happened:* After deploying via Docker, the game failed to launch in the browser. The Pygbag runtime JavaScript files were returning 404 errors.
+- *Root cause:* Nginx was configured to serve all static files locally, but some Pygbag runtime assets are expected to be fetched from the Pygbag CDN at runtime. The strict `try_files` directive blocked those requests.
+- *Resolution:* After several iterations, adopted a `sub_filter` URL rewriting approach — Nginx automatically rewrites hardcoded Pygbag CDN URLs in the game HTML to local proxy paths (`/pygbag-cdn/`), which are forwarded upstream to `pygame-web.github.io`. Critical assets like `browserfs.min.js` are served locally from `/pygbag-local/` to avoid CDN instability.
+- *Takeaway:* When integrating third-party toolchains (like Pygbag's WASM compilation), it's essential to understand their full runtime dependency graph, including external CDN calls, before writing Nginx rules.
+
+**Git Conflicts Across Multiple PCs**  
+- *What happened:* Working across multiple machines led to divergent local states and merge conflicts that were difficult to untangle.
+- *Resolution:* Adopted a strict workflow of committing and pushing before switching machines, and using `git reset --hard` + pull when local state diverged beyond recovery.
+- *Takeaway:* Multi-device workflows require discipline around commit hygiene. Future projects should consider a short checklist before closing a workstation: commit, push, verify.
+
+### 2.3 Improvements for Future Projects
+
+1. **Implement CI/CD from Sprint 1.** The absence of an automated CI pipeline meant manual testing and deployment throughout the project. Even a basic GitHub Actions workflow running tests on push would have caught issues earlier.
+
+2. **Allocate more time for integration testing.** Most bugs surfaced at the integration boundary (frontend ↔ API, Docker ↔ database, Nginx ↔ Pygbag). Dedicated integration testing sprints — or at least integration test tasks within each sprint — would reduce late-stage surprises.
+
+3. **Document environment configurations centrally.** The leaderboard bug was a direct result of implicit environment assumptions. A single `.env.example` file with validated defaults, plus startup validation, should be standard practice.
+
+4. **Plan for mobile from the start.** The `/mobile` route and folder structure was added mid-project. While the Nginx separation worked, a responsive-first approach or an early decision about mobile strategy would have been more efficient.
+
+5. **Test auth flows under load.** The JWT race condition was only caught through manual testing. Automated tests simulating concurrent requests should be part of any auth implementation's test suite.
+
+---
+
+## 3. Team Retrospective
+
+### 3.1 Retrospective Format
+
+The team conducted a structured retrospective using the **Start / Stop / Continue** framework, supplemented by individual reflections.
+
+### 3.2 What Worked Well as a Team
+
+- **Clear role division:** Mélissa focused on infrastructure, deployment, Nginx configuration, the loading screen, and API security; Hugo focused on game mechanics, mobile development, and frontend interactions. This separation minimized merge conflicts and allowed parallel progress.
+- **Consistent communication:** Regular check-ins and shared task boards (aligned with sprint planning) kept both team members aware of each other's progress and blockers.
+- **Shared ownership of quality:** Both team members participated in QA and bug triage, regardless of who authored the code. This cross-review approach caught bugs that the original author had overlooked.
+
+### 3.3 Challenges Faced as a Team
+
+- **Scope management under time pressure:** The team occasionally took on too many tasks in a single sprint, leading to rushed implementations that required rework in the following sprint.
+- **Documentation lag:** Technical documentation (API docs, deployment guides) was often written after the fact rather than alongside development. This created a catch-up burden toward the end of the project.
+- **Asynchronous debugging:** Some bugs (particularly the Nginx/Pygbag issue) required extensive trial-and-error across multiple configurations. When both team members were debugging different issues simultaneously, context switching slowed progress.
+
+### 3.4 Start / Stop / Continue
+
+| Start | Stop | Continue |
+|---|---|---|
+| CI/CD pipeline from day one | Taking on more tasks than sprint capacity allows | Clear role division between team members |
+| Writing integration tests alongside feature development | Deferring documentation to the end of sprints | Sprint planning with story point estimation |
+| Centralized `.env` management with validation | Assuming environment parity without verification | Cross-review of each other's code and QA |
+| Mobile-first responsive planning | Multi-PC workflows without commit discipline | Regular communication and shared task boards |
+
+### 3.5 Individual Reflections
+
+**Mélissa:**  
+This project reinforced the importance of infrastructure-first thinking. Setting up Docker Compose, Nginx, and the Security Facade early provided a stable foundation that made feature development smoother. The Pygbag CDN routing issue was the most frustrating challenge — it required understanding a third-party tool's runtime behavior deeply — but resolving it was also the most satisfying technical accomplishment. For future projects, I want to invest more time in automated deployment pipelines and infrastructure-as-code practices.
+
+**Hugo:**  
+Working on the game mechanics and mobile interface was technically rewarding. The biggest lesson was the importance of testing across environments — what works in a local Python environment doesn't always translate cleanly to a WASM browser build. The sprint planning process helped keep the project on track, and I appreciated the clear communication within the team. Going forward, I'd like to improve my testing practices and start writing tests earlier in the development cycle.
+
+---
+
+## 4. Presentation Outline
+
+The team will deliver a 15–20 minute presentation structured as follows:
+
+| Slide | Content | Speaker |
+|---|---|---|
+| 1 | Title slide — ARCAD3X / SI3LN, team intro | Both |
+| 2 | Project Charter recap — vision, objectives, scope | Mélissa |
+| 3 | Process journey — ideation → planning → tech docs → development | Hugo |
+| 4 | Architecture overview — system diagram, tech stack | Mélissa |
+| 5 | Key technical decisions — Security Facade, Pygbag, Docker | Mélissa |
+| 6 | Sprint summary — velocity chart, story points delivered | Hugo |
+| 7 | Live MVP demo — game, registration, leaderboard | Both |
+| 8 | Results & metrics — MVP completion, KPIs | Mélissa |
+| 9 | Challenges & solutions — JWT bug, Nginx/Pygbag, leaderboard | Both |
+| 10 | Lessons learned & retrospective highlights | Hugo |
+| 11 | Future recommendations & next steps | Mélissa |
+| 12 | Closing — acknowledgments, Q&A | Both |
+
+### Demo Plan
+
+The live demo will follow this sequence:
+1. Open the ARCAD3X platform in a browser (Docker deployment).
+2. Register a new user account to show the authentication flow.
+3. Play a short round of SI3LN to demonstrate game mechanics.
+4. Submit a score and show it appearing on the leaderboard.
+5. Show the SPA dashboard with user stats and global rankings.
+6. (If time allows) Show the mobile route to demonstrate responsive design.
+
+**Fallback:** Pre-recorded screen capture available in case of connectivity or deployment issues during the live demo.
+
+---
+
+## 5. Conclusion & Future Recommendations
+
+### 5.1 Project Assessment
+
+ARCAD3X / SI3LN successfully delivered a functional full-stack arcade platform that meets approximately 90% of the objectives defined in the original Project Charter. The team navigated significant technical challenges — from WASM compilation and CDN routing to JWT race conditions and environment configuration mismatches — while maintaining consistent sprint velocity and delivering a polished user experience.
+
+The project demonstrated that a two-person team can build and deploy a multi-layered web application within a constrained timeline when supported by clear role division, disciplined sprint planning, and a willingness to dive deep into infrastructure problems.
+
+### 5.2 Future Recommendations
+
+If the project were to continue beyond the academic context, the following improvements would be prioritized:
+
+1. **CI/CD with GitHub Actions:** Automated testing on push, automated Docker image builds, and staged deployments.
+2. **Extended game library:** The ARCAD3X platform architecture supports multiple games. Adding new Pygbag-compiled games would validate the platform's scalability.
+3. **Social features:** Friend lists, challenge modes, and shared leaderboards would increase user engagement.
+4. **Performance monitoring:** Integrating basic APM (application performance monitoring) to track API response times, game load times, and error rates in production.
+5. **Accessibility audit:** Ensuring the SPA and game interfaces meet WCAG 2.1 AA standards.
+
+### 5.3 Acknowledgments
+
+The team would like to thank the Holberton School France staff and tutors for their guidance throughout the project lifecycle, and our fellow students for their feedback during testing and review sessions.
+
+--
+
+*Last updated: March 14, 2026* 🚀
